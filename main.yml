@@ -1,0 +1,11 @@
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Remove DHCP addresses that are present in the known_hosts from the docker container awx_task
+    shell: |
+      docker exec -it awx_task /bin/bash -c "sed '/^{{ item }}/d' -i /root/.ssh/known_hosts"
+    with_inventory_hostnames:
+      - awx_host_group
+    ignore_errors: yes
+    delegate_to: tower.plumbus.lab
