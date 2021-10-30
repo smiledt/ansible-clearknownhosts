@@ -6,6 +6,6 @@
     shell: |
       docker exec -it awx_task /bin/bash -c "sed '/^{{ item }}/d' -i /root/.ssh/known_hosts"
     with_inventory_hostnames:
-      - awx_host_group
+      - deploy
     ignore_errors: yes
     delegate_to: tower.plumbus.lab
